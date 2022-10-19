@@ -651,3 +651,187 @@ Processing triggers for libc-bin (2.31-0ubuntu9.9) ...
 muslimjon@ubuntu:~$ rqt 
 ```
 ![Screenshot from 2022-10-18 18-58-02](https://user-images.githubusercontent.com/114977921/196579387-59391932-1b8b-4c6c-bfcb-f0a72ed439e8.png)
+
+
+![Screenshot from 2022-10-18 22-17-07](https://user-images.githubusercontent.com/114977921/196603500-7b3de326-7b26-42e7-b799-97bfc3c6aff1.png)
+## ROS2 Colcon
+```
+muslimjon@ubuntu:~$ mkdir -p ~/ros2_ws/src
+muslimjon@ubuntu:~$ cd ~/ros2_ws
+muslimjon@ubuntu:~/ros2_ws$ git clone https://github.com/ros2/examples src/examples -b foxy
+fatal: destination path 'src/examples' already exists and is not an empty directory.
+```
+```
+muslimjon@ubuntu:~/ros2_ws$ colcon build --symlink-install
+[0.500s] WARNING:colcon.colcon_core.package_selection:Some selected packages are already built in one or more underlay workspaces:
+	'examples_rclcpp_minimal_timer' is in: /opt/ros/foxy
+	'examples_rclcpp_minimal_action_client' is in: /opt/ros/foxy
+	'examples_rclcpp_minimal_subscriber' is in: /opt/ros/foxy
+	'examples_rclcpp_minimal_client' is in: /opt/ros/foxy
+	'examples_rclcpp_minimal_composition' is in: /opt/ros/foxy
+	'examples_rclpy_minimal_action_client' is in: /opt/ros/foxy
+	'examples_rclcpp_minimal_publisher' is in: /opt/ros/foxy
+	'examples_rclpy_minimal_subscriber' is in: /opt/ros/foxy
+	'examples_rclcpp_minimal_service' is in: /opt/ros/foxy
+	'examples_rclpy_executors' is in: /opt/ros/foxy
+	'examples_rclpy_minimal_service' is in: /opt/ros/foxy
+	'turtlesim' is in: /opt/ros/foxy
+	'examples_rclcpp_minimal_action_server' is in: /opt/ros/foxy
+	'examples_rclpy_minimal_publisher' is in: /opt/ros/foxy
+	'examples_rclpy_minimal_client' is in: /opt/ros/foxy
+	'examples_rclcpp_multithreaded_executor' is in: /opt/ros/foxy
+	'examples_rclpy_minimal_action_server' is in: /opt/ros/foxy
+If a package in a merged underlay workspace is overridden and it installs headers, then all packages in the overlay must sort their include directories by workspace order. Failure to do so may result in build failures or undefined behavior at run time.
+If the overridden package is used by another package in any underlay, then the overriding package in the overlay must be API and ABI compatible or undefined behavior at run time may occur.
+
+If you understand the risks and want to override a package anyways, add the following to the command line:
+	--allow-overriding examples_rclcpp_minimal_action_client examples_rclcpp_minimal_action_server examples_rclcpp_minimal_client examples_rclcpp_minimal_composition examples_rclcpp_minimal_publisher examples_rclcpp_minimal_service examples_rclcpp_minimal_subscriber examples_rclcpp_minimal_timer examples_rclcpp_multithreaded_executor examples_rclpy_executors examples_rclpy_minimal_action_client examples_rclpy_minimal_action_server examples_rclpy_minimal_client examples_rclpy_minimal_publisher examples_rclpy_minimal_service examples_rclpy_minimal_subscriber turtlesim
+
+This may be promoted to an error in a future release of colcon-override-check.
+Starting >>> examples_rclcpp_minimal_action_client
+Starting >>> examples_rclcpp_minimal_action_server
+Finished <<< examples_rclcpp_minimal_action_server [0.44s]
+Starting >>> examples_rclcpp_minimal_client
+Finished <<< examples_rclcpp_minimal_action_client [0.59s]
+Starting >>> examples_rclcpp_minimal_composition
+Finished <<< examples_rclcpp_minimal_client [0.42s]
+Starting >>> examples_rclcpp_minimal_publisher
+Finished <<< examples_rclcpp_minimal_composition [0.55s]
+Starting >>> examples_rclcpp_minimal_service
+Finished <<< examples_rclcpp_minimal_publisher [0.42s]
+Starting >>> examples_rclcpp_minimal_subscriber                           
+Finished <<< examples_rclcpp_minimal_service [0.38s]
+Starting >>> examples_rclcpp_minimal_timer
+Finished <<< examples_rclcpp_minimal_subscriber [0.45s]
+Starting >>> examples_rclcpp_multithreaded_executor
+Finished <<< examples_rclcpp_minimal_timer [0.39s]
+Starting >>> examples_rclpy_executors
+Finished <<< examples_rclcpp_multithreaded_executor [0.61s]
+Starting >>> examples_rclpy_minimal_action_client
+Finished <<< examples_rclpy_executors [1.38s]                           
+Starting >>> examples_rclpy_minimal_action_server
+Finished <<< examples_rclpy_minimal_action_client [1.32s]
+Starting >>> examples_rclpy_minimal_client
+Finished <<< examples_rclpy_minimal_action_server [1.35s]
+Starting >>> examples_rclpy_minimal_publisher
+Finished <<< examples_rclpy_minimal_client [1.36s]                            
+Starting >>> examples_rclpy_minimal_service
+Finished <<< examples_rclpy_minimal_publisher [1.33s]
+Starting >>> examples_rclpy_minimal_subscriber
+Finished <<< examples_rclpy_minimal_service [1.37s]                            
+Starting >>> musimjon
+Finished <<< examples_rclpy_minimal_subscriber [1.95s]
+Starting >>> turtlesim
+Finished <<< musimjon [2.13s]                                                 
+--- stderr: turtlesim                            
+CMake Error at CMakeLists.txt:47 (rosidl_get_typesupport_target):
+  Unknown CMake command "rosidl_get_typesupport_target".
+
+
+---
+Failed   <<< turtlesim [3.07s, exited with code 1]
+
+Summary: 17 packages finished [11.4s]
+  1 package failed: turtlesim
+  1 package had stderr output: turtlesim
+  ```
+  ```
+  muslimjon@ubuntu:~/ros2_ws$ colcon test
+Starting >>> examples_rclcpp_minimal_action_client
+Starting >>> examples_rclcpp_minimal_action_server
+Finished <<< examples_rclcpp_minimal_action_server [2.77s]
+Starting >>> examples_rclcpp_minimal_client
+Finished <<< examples_rclcpp_minimal_action_client [2.82s]
+Starting >>> examples_rclcpp_minimal_composition
+Finished <<< examples_rclcpp_minimal_client [2.81s]                           
+Starting >>> examples_rclcpp_minimal_publisher
+Finished <<< examples_rclcpp_minimal_composition [2.90s]
+Starting >>> examples_rclcpp_minimal_service
+Finished <<< examples_rclcpp_minimal_service [3.76s]
+Starting >>> examples_rclcpp_minimal_subscriber                  
+Finished <<< examples_rclcpp_minimal_publisher [3.92s]
+Starting >>> examples_rclcpp_minimal_timer
+Finished <<< examples_rclcpp_minimal_subscriber [2.79s]
+Starting >>> examples_rclcpp_multithreaded_executor
+Finished <<< examples_rclcpp_minimal_timer [2.79s]                            
+Starting >>> examples_rclpy_executors
+--- stderr: examples_rclpy_executors   
+
+=============================== warnings summary ===============================
+/usr/lib/python3/dist-packages/pydocstyle/config.py:6
+  Warning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+---
+Finished <<< examples_rclpy_executors [1.57s]
+Starting >>> examples_rclpy_minimal_action_client
+Finished <<< examples_rclcpp_multithreaded_executor [2.64s]
+Starting >>> examples_rclpy_minimal_action_server
+--- stderr: examples_rclpy_minimal_action_client
+
+=============================== warnings summary ===============================
+/usr/lib/python3/dist-packages/pydocstyle/config.py:6
+  Warning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+---
+Finished <<< examples_rclpy_minimal_action_client [1.36s]
+Starting >>> examples_rclpy_minimal_client
+--- stderr: examples_rclpy_minimal_action_server
+
+=============================== warnings summary ===============================
+/usr/lib/python3/dist-packages/pydocstyle/config.py:6
+  Warning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+---
+Finished <<< examples_rclpy_minimal_action_server [1.37s]
+Starting >>> examples_rclpy_minimal_publisher
+--- stderr: examples_rclpy_minimal_client                                      
+
+=============================== warnings summary ===============================
+/usr/lib/python3/dist-packages/pydocstyle/config.py:6
+  Warning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+---
+Finished <<< examples_rclpy_minimal_client [1.36s]
+Starting >>> examples_rclpy_minimal_service
+--- stderr: examples_rclpy_minimal_publisher
+
+=============================== warnings summary ===============================
+/usr/lib/python3/dist-packages/pydocstyle/config.py:6
+  Warning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+---
+Finished <<< examples_rclpy_minimal_publisher [1.28s]
+Starting >>> examples_rclpy_minimal_subscriber
+--- stderr: examples_rclpy_minimal_service
+
+=============================== warnings summary ===============================
+/usr/lib/python3/dist-packages/pydocstyle/config.py:6
+  Warning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+---
+Finished <<< examples_rclpy_minimal_service [1.28s]
+Starting >>> musimjon
+--- stderr: examples_rclpy_minimal_subscriber
+
+=============================== warnings summary ===============================
+/usr/lib/python3/dist-packages/pydocstyle/config.py:6
+  Warning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+---
+Finished <<< examples_rclpy_minimal_subscriber [1.25s]
+Starting >>> turtlesim
+Finished <<< turtlesim [0.03s]
+Finished <<< musimjon [1.47s]             
+
+Summary: 18 packages finished [19.7s]
+  7 packages had stderr output: examples_rclpy_executors examples_rclpy_minimal_action_client examples_rclpy_minimal_action_server examples_rclpy_minimal_client examples_rclpy_minimal_publisher examples_rclpy_minimal_service examples_rclpy_minimal_subscriber
+muslimjon@ubuntu:~/ros2_ws$ 
+```
+  
